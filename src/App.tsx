@@ -4,13 +4,21 @@ import Home from './routes/Home';
 import Profile from './routes/Profile';
 import Login from './routes/Login';
 import CreateAccount from './routes/CreateAccount';
-import { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
+import { useEffect, useState } from 'react';
+import Loading from './components/Loading';
+import { auth } from './firebase/firebase';
+import ProtectedRoute from './components/ProtectedRoute';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Layout />,
+    element: (
+      <ProtectedRoute>
+        <Layout />
+      </ProtectedRoute>
+    ),
     children: [
       {
         index: true,
@@ -42,11 +50,28 @@ background-color:black;
 color:white;
 }
 `;
+
+const Wrapper = styled.div`
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+`;
 export default function App() {
+  const [isLoading, setIsLoading] = useState(true);
+  const init = async () => {
+    // wait for firebase
+    await auth.authStateReady();
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    init();
+  }, []);
+
   return (
-    <>
+    <Wrapper>
       <GlobalStyles />
-      <RouterProvider router={router}></RouterProvider>
-    </>
+      {isLoading ? <Loading /> : <RouterProvider router={router} />}
+    </Wrapper>
   );
 }

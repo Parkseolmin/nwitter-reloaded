@@ -11,6 +11,7 @@ import {
   Title,
   Wrapper,
 } from '../components/AuthComponent';
+import GithubBtn from '../components/GitHubBtn';
 
 export default function CreateAccount() {
   const [isLoading, setIsLoading] = useState(false);
@@ -46,10 +47,10 @@ export default function CreateAccount() {
         inputValue.email,
         inputValue.password
       );
-      console.log(credentials.user);
       await updateProfile(credentials.user, {
         displayName: inputValue.name,
       });
+      console.log('업데이트프로필', credentials.user);
       navigate('/');
     } catch (error) {
       // setError
@@ -104,6 +105,7 @@ export default function CreateAccount() {
       <Switcher>
         Already have an account? <Link to='/login'>Login &rarr;</Link>
       </Switcher>
+      <GithubBtn />
     </Wrapper>
   );
 }

@@ -11,6 +11,9 @@ import {
   Title,
   Wrapper,
 } from '../components/AuthComponent';
+import GithubBtn from '../components/GitHubBtn';
+const LOGIN_IMAGE_SRC =
+  'https://abs.twimg.com/responsive-web/client-web/icon-default.522d363a.png';
 
 export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
@@ -18,7 +21,7 @@ export default function Login() {
     email: '',
     password: '',
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState<string>('');
   const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,9 +45,25 @@ export default function Login() {
       );
       navigate('/');
     } catch (error) {
-      // setError
       if (error instanceof FirebaseError) {
-        setError(error.message);
+        switch (error.code) {
+          case 'auth/invalid-email':
+            setError('잘못된 이메일 형식입니다.');
+            break;
+          case 'auth/user-disabled':
+            setError('사용자 계정이 비활성화되었습니다.');
+            break;
+          case 'auth/user-not-found':
+            setError('사용자를 찾을 수 없습니다.');
+            break;
+          case 'auth/wrong-password':
+            setError('잘못된 비밀번호입니다.');
+            break;
+          default:
+            setError('로그인 중 오류가 발생했습니다.');
+        }
+      } else {
+        setError('로그인 중 오류가 발생했습니다.');
       }
     } finally {
       setIsLoading(false);
@@ -54,11 +73,7 @@ export default function Login() {
     <Wrapper>
       <Title>
         Login
-        <img
-          style={{ width: '70px' }}
-          src='https://abs.twimg.com/responsive-web/client-web/icon-default.522d363a.png'
-          alt='image'
-        />
+        <img style={{ width: '70px' }} src={LOGIN_IMAGE_SRC} alt='image' />
       </Title>
       <Form onSubmit={handleSubmit}>
         <Input
@@ -77,13 +92,18 @@ export default function Login() {
           required
           onChange={handleChange}
         />
-        <Input type='submit' value={isLoading ? 'Loading...' : 'Log in'} />
+        <Input
+          type='submit'
+          value={isLoading ? 'Loading...' : 'Log in'}
+          disabled={isLoading}
+        />
       </Form>
       {error !== '' ? <Error>{error}</Error> : null}
       <Switcher>
         Don't have an account?{' '}
         <Link to='/create-account'>Create one &rarr;</Link>
       </Switcher>
+      <GithubBtn />
     </Wrapper>
   );
 }

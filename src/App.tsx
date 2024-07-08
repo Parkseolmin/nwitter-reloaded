@@ -59,7 +59,6 @@ const Wrapper = styled.div`
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
   const init = async () => {
-    // wait for firebase
     await auth.authStateReady();
     setIsLoading(false);
   };

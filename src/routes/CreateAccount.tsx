@@ -10,7 +10,7 @@ import {
   Switcher,
   Title,
   Wrapper,
-} from '../components/AuthComponent';
+} from '../styledComponents/AuthComponent/AuthComponent';
 import GithubBtn from '../components/GitHubBtn';
 
 export default function CreateAccount() {

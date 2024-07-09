@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 import Loading from './components/Loading';
 import { auth } from './firebase/firebase';
 import ProtectedRoute from './components/ProtectedRoute';
+import './App.css';
 
 const router = createBrowserRouter([
   {
@@ -41,14 +42,20 @@ const router = createBrowserRouter([
 ]);
 
 const GlobalStyles = createGlobalStyle`
-${reset}
-* {
-box-sizing: border-box;
-}
-body {
-background-color:black;
-color:white;
-}
+  ${reset}
+  * {
+  box-sizing: border-box;
+  font-family: "Noto Sans KR", sans-serif;
+  font-optical-sizing: auto;
+  }
+  body {
+  background-color:black;
+  color:white;
+  
+  }
+  ::-webkit-scrollbar {
+  display:none;
+  }
 `;
 
 const Wrapper = styled.div`

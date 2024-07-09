@@ -10,7 +10,7 @@ import {
   Switcher,
   Title,
   Wrapper,
-} from '../components/AuthComponent';
+} from '../styledComponents/AuthComponent/AuthComponent';
 import GithubBtn from '../components/GitHubBtn';
 const LOGIN_IMAGE_SRC =
   'https://abs.twimg.com/responsive-web/client-web/icon-default.522d363a.png';

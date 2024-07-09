@@ -12,6 +12,9 @@ export const Title = styled.h1`
   display: flex;
   font-size: 42px;
   align-items: center;
+  font-family: 'Playfair Display', serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
 `;
 export const Form = styled.form`
   margin-top: 50px;

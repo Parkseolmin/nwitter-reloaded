@@ -26,11 +26,6 @@ export default function Tweet({
   userId,
   id,
 }: ITweet) {
-  console.log('username : ', username);
-  console.log('photoUrl : ', photoUrl);
-  console.log('tweet : ', tweet);
-  console.log('id : ', id);
-  console.log('userId : ', userId);
   const user = auth.currentUser;
 
   const [isEdit, setIsEdit] = useState(false);
@@ -91,7 +86,7 @@ export default function Tweet({
         <Username>{username}</Username>
         {isEdit ? (
           <>
-            <TextArea style={{}} value={editedTweet} onChange={onChangeTweet} />
+            <TextArea value={editedTweet} onChange={onChangeTweet} />
             <input type='file' accept='image/*' onChange={onChangePhoto} />
             <Button onClick={onSave}>Save</Button>
           </>
